@@ -1,4 +1,4 @@
-package domain;
+package za.ac.readiculous.domain;
 
 
 
@@ -46,7 +46,7 @@ public class User {
 
     // Domain Behavior (example)
     public void changePassword(String newPassword) {
-        // Add domain validation logic here
+        // Add za.ac.readiculous.domain validation logic here
         this.password = newPassword;
     }
 
