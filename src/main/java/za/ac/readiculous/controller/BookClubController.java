@@ -38,8 +38,10 @@ public class BookClubController {
         return bookClubService.delete(id);
     }
 
-    @GetMapping("/all")
+
+    @GetMapping("/api/bookclubs/all")
     public List<BookClub> getAllBookClubs() {
         return bookClubService.getAll();
     }
+
 }
