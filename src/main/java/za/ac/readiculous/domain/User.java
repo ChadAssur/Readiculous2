@@ -1,33 +1,25 @@
 package za.ac.readiculous.domain;
 
-
-
 import java.util.Objects;
 
 public class User {
 
-
     private Integer userId;
-
-
     private String name;
-
-
     private String email;
-
-
     private String password;
 
-    // Constructors
+
     protected User() {}  // For JPA
 
-    public User(String name, String email, String password) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
+    private User(Builder builder) {
+        this.userId = builder.userId;
+        this.name = builder.name;
+        this.email = builder.email;
+        this.password = builder.password;
     }
 
-    // Getters (no setters to maintain immutability and aggregate root control)
+
     public Integer getUserId() {
         return userId;
     }
@@ -44,13 +36,13 @@ public class User {
         return password;
     }
 
-    // Domain Behavior (example)
+
     public void changePassword(String newPassword) {
-        // Add za.ac.readiculous.domain validation logic here
+
         this.password = newPassword;
     }
 
-    // Equality (Entity Identity)
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -63,5 +55,36 @@ public class User {
     public int hashCode() {
         return Objects.hash(userId);
     }
-}
 
+
+    public static class Builder {
+        private Integer userId;
+        private String name;
+        private String email;
+        private String password;
+
+        public Builder userId(Integer userId) {
+            this.userId = userId;
+            return this;
+        }
+
+        public Builder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder email(String email) {
+            this.email = email;
+            return this;
+        }
+
+        public Builder password(String password) {
+            this.password = password;
+            return this;
+        }
+
+        public User build() {
+            return new User(this);
+        }
+    }
+}
