@@ -1,5 +1,6 @@
 package za.ac.readiculous.domain;
 
+
 import java.time.LocalDateTime;
 
 public class BookClub {
@@ -11,9 +12,10 @@ public class BookClub {
     private LocalDateTime createdAt;
     private String memberList;
     private EventManagement scheduleMeeting;
-    protected BookClub() {}
-    
-    private BookClub(Builder builder) {
+
+    protected BookClub(){}
+
+    public BookClub(Builder builder){
         this.clubId = builder.clubId;
         this.organizerId = builder.organizerId;
         this.clubName = builder.clubName;
@@ -69,7 +71,7 @@ public class BookClub {
                 ", scheduleMeeting=" + scheduleMeeting +
                 '}';
     }
-
+    
     public static class Builder {
         private long clubId;
         private long organizerId;
@@ -80,13 +82,13 @@ public class BookClub {
         private String memberList;
         private EventManagement scheduleMeeting;
 
-        public Builder setClubId(long clubId) {
-            this.clubId = clubId;
+        public Builder setOrganizerId(long organizerId) {
+            this.organizerId = organizerId;
             return this;
         }
 
-        public Builder setOrganizerId(long organizerId) {
-            this.organizerId = organizerId;
+        public Builder setClubId(long clubId) {
+            this.clubId = clubId;
             return this;
         }
 
@@ -131,7 +133,7 @@ public class BookClub {
             this.scheduleMeeting = bookClub.scheduleMeeting;
             return this;
         }
-
+        
         public BookClub build() {
             return new BookClub(this);
         }
