@@ -1,6 +1,6 @@
 package za.ac.readiculous.repository;
 
-import za.ac.cput.Domain.Discussion;
+import za.ac.readiculous.domain.Discussion;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,10 +11,10 @@ import java.util.List;
 public class DiscussionRepository implements IDiscussionRepository {
 
     private static DiscussionRepository repository = null;
-    private List<Discussion> discussionList;
+    private final List<Discussion> discussionList;
 
     private DiscussionRepository() {
-        discussionList = new ArrayList<>();
+        this.discussionList = new ArrayList<>();
     }
 
     public static DiscussionRepository getInstance() {
@@ -31,7 +31,7 @@ public class DiscussionRepository implements IDiscussionRepository {
         }
 
         if (exists(discussion.getDiscussionId())) {
-            return null;
+            return null; // prevent duplicates
         }
 
         discussionList.add(discussion);
@@ -50,14 +50,13 @@ public class DiscussionRepository implements IDiscussionRepository {
 
     @Override
     public Discussion update(Discussion discussion) {
-        if (discussion == null) {
+        if (discussion == null || discussion.getDiscussionId() == null) {
             return null;
         }
 
         int index = findIndexByDiscussionId(discussion.getDiscussionId());
-
         if (index == -1) {
-            return null;
+            return null; // not found
         }
 
         discussionList.set(index, discussion);
@@ -69,7 +68,7 @@ public class DiscussionRepository implements IDiscussionRepository {
         int index = findIndexByDiscussionId(discussionId);
 
         if (index == -1) {
-            return false;
+            return false; // not found
         }
 
         discussionList.remove(index);

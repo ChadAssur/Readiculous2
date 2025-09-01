@@ -1,6 +1,7 @@
 package za.ac.readiculous.factory;
 
-import za.ac.cput.Domain.Discussion;
+
+import za.ac.readiculous.domain.Discussion;
 
 /*
  * Author: Mpotseng Heisi (222309792)

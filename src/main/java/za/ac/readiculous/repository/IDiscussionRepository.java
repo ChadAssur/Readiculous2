@@ -1,6 +1,8 @@
 package za.ac.readiculous.repository;
 
-import za.ac.cput.Domain.Discussion;
+
+
+import za.ac.readiculous.domain.Discussion;
 
 import java.util.List;
 
