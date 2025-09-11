@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class BadgeService {
+public class BadgeService implements IBadgeService{
 
     private final BadgeRepository repository;
 
@@ -34,6 +34,31 @@ public class BadgeService {
 
     public void deleteById(Long id) {
         repository.deleteById(id);
+    }
+
+    @Override
+    public List<Badge> getAll() {
+        return List.of();
+    }
+
+    @Override
+    public BadgeService create(BadgeService badgeService) {
+        return null;
+    }
+
+    @Override
+    public BadgeService read(Long aLong) {
+        return null;
+    }
+
+    @Override
+    public BadgeService update(BadgeService badgeService) {
+        return null;
+    }
+
+    @Override
+    public boolean delete(Long aLong) {
+        return false;
     }
 }
 
