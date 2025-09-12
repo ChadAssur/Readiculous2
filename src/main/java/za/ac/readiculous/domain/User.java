@@ -1,14 +1,20 @@
 package za.ac.readiculous.domain;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import java.util.Objects;
 
+@Entity
 public class User {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer userId;
     private String name;
     private String email;
     private String password;
-
 
     protected User() {}  // For JPA
 
@@ -18,7 +24,6 @@ public class User {
         this.email = builder.email;
         this.password = builder.password;
     }
-
 
     public Integer getUserId() {
         return userId;
@@ -36,12 +41,9 @@ public class User {
         return password;
     }
 
-
     public void changePassword(String newPassword) {
-
         this.password = newPassword;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -55,7 +57,6 @@ public class User {
     public int hashCode() {
         return Objects.hash(userId);
     }
-
 
     public static class Builder {
         private Integer userId;
