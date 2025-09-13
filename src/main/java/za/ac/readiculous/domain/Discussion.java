@@ -1,88 +1,80 @@
 package za.ac.readiculous.domain;
 
 public class Discussion {
-    private String discussionId;
-    private String content;
-    private int views;
+    private Long discussionId;
+    private String title;
+    private String description;
     private int likes;
-    private String poll;
-    private String tags;
-    private String link;
+    private String author;
+    private String comment;
 
     private Discussion() {}
 
     private Discussion(Builder builder) {
         this.discussionId = builder.discussionId;
-        this.content = builder.content;
-        this.views = builder.views;
+        this.title = builder.title;
+        this.description = builder.description;
         this.likes = builder.likes;
-        this.poll = builder.poll;
-        this.tags = builder.tags;
-        this.link = builder.link;
+        this.author = builder.author;
+        this.comment = builder.comment;
     }
 
-    public String getDiscussionId() {
+    public Long getDiscussionId() {
         return discussionId;
     }
 
-    public String getContent() {
-        return content;
+    public String getTitle() {
+        return title;
     }
 
-    public int getViews() {
-        return views;
+    public String getDescription() {
+        return description;
     }
 
     public int getLikes() {
         return likes;
     }
 
-    public String getPoll() {
-        return poll;
+    public String getAuthor() {
+        return author;
     }
 
-    public String getTags() {
-        return tags;
-    }
-
-    public String getLink() {
-        return link;
+    public String getComment() {
+        return comment;
     }
 
     @Override
     public String toString() {
         return "Discussion{" +
                 "discussionId='" + discussionId + '\'' +
-                ", content='" + content + '\'' +
-                ", views=" + views +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
                 ", likes=" + likes +
-                ", poll='" + poll + '\'' +
-                ", tags='" + tags + '\'' +
-                ", link='" + link + '\'' +
+                ", author='" + author + '\'' +
+                ", comment='" + comment + '\'' +
                 '}';
     }
 
     public static class Builder {
-        private String discussionId;
-        private String content;
-        private int views;
+        private Long discussionId;
+        private String title;
+        private String description;
         private int likes;
-        private String poll;
-        private String tags;
-        private String link;
+        private String author;
+        private String comment;
 
-        public Builder setDiscussionId(String discussionId) {
+        public Builder setDiscussionId(Long discussionId) {
             this.discussionId = discussionId;
             return this;
         }
 
-        public Builder setContent(String content) {
-            this.content = content;
+        public Builder setTitle(String title) {
+            this.title = title;
             return this;
         }
 
-        public Builder setViews(int views) {
-            this.views = views;
+        public Builder setDescription(String description) {
+            this.description = description;
             return this;
         }
 
@@ -91,18 +83,13 @@ public class Discussion {
             return this;
         }
 
-        public Builder setPoll(String poll) {
-            this.poll = poll;
+        public Builder setAuthor(String author) {
+            this.author = author;
             return this;
         }
 
-        public Builder setTags(String tags) {
-            this.tags = tags;
-            return this;
-        }
-
-        public Builder setLink(String link) {
-            this.link = link;
+        public Builder setComment(String comment) {
+            this.comment = comment;
             return this;
         }
 
@@ -111,4 +98,3 @@ public class Discussion {
         }
     }
 }
-
