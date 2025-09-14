@@ -1,6 +1,16 @@
 package za.ac.readiculous.domain;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import java.util.Objects;
+
+@Entity
 public class Discussion {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long discussionId;
     private String title;
     private String description;
@@ -8,7 +18,8 @@ public class Discussion {
     private String author;
     private String comment;
 
-    private Discussion() {}
+    // Default constructor (JPA requirement)
+    protected Discussion() {}
 
     private Discussion(Builder builder) {
         this.discussionId = builder.discussionId;
@@ -19,6 +30,7 @@ public class Discussion {
         this.comment = builder.comment;
     }
 
+    // Getters
     public Long getDiscussionId() {
         return discussionId;
     }
@@ -43,10 +55,30 @@ public class Discussion {
         return comment;
     }
 
+    // equals & hashCode
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Discussion that = (Discussion) o;
+        return likes == that.likes &&
+                Objects.equals(discussionId, that.discussionId) &&
+                Objects.equals(title, that.title) &&
+                Objects.equals(description, that.description) &&
+                Objects.equals(author, that.author) &&
+                Objects.equals(comment, that.comment);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(discussionId, title, description, likes, author, comment);
+    }
+
+    // toString
     @Override
     public String toString() {
         return "Discussion{" +
-                "discussionId='" + discussionId + '\'' +
+                "discussionId=" + discussionId +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", likes=" + likes +
@@ -55,6 +87,7 @@ public class Discussion {
                 '}';
     }
 
+    // Builder
     public static class Builder {
         private Long discussionId;
         private String title;
@@ -90,6 +123,16 @@ public class Discussion {
 
         public Builder setComment(String comment) {
             this.comment = comment;
+            return this;
+        }
+
+        public Builder copy(Discussion discussion) {
+            this.discussionId = discussion.discussionId;
+            this.title = discussion.title;
+            this.description = discussion.description;
+            this.likes = discussion.likes;
+            this.author = discussion.author;
+            this.comment = discussion.comment;
             return this;
         }
 

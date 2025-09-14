@@ -18,7 +18,8 @@ public class Admin {
     private String password;
     private String role = "ADMIN";
 
-    public Admin() {}
+
+    public Admin()  {}
 
     public Admin(Builder builder) {
         this.id = builder.id;

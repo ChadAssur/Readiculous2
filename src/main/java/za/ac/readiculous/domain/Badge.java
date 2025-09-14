@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "badges") // optional, defaults to class name
+@Table(name = "badges")
 public class Badge {
 
     @Id

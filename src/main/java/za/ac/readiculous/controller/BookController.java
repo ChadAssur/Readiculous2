@@ -1,53 +1,47 @@
 package za.ac.readiculous.controller;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import za.ac.readiculous.domain.Book;
 import za.ac.readiculous.service.BookService;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/books")
+@RequestMapping("/book")
 public class BookController {
 
     private final BookService bookService;
+    private BookService service;
 
-    // Constructor injection
-    public BookController(BookService bookService) {
+    @Autowired
+    public BookController(BookService bookService, BookService service) {
         this.bookService = bookService;
+        this.service = service;
     }
 
-    // Create
-    @PostMapping
-    public ResponseEntity<Book> createBook(@RequestBody Book book) {
-        Book created = bookService.create(book);
-        return new ResponseEntity<>(created, HttpStatus.CREATED);
+    @PostMapping("/create")
+    public Book create(@RequestBody Book book) {
+        return service.create(book);
     }
 
-    // Read by ID
-    @GetMapping("/{id}")
-    public ResponseEntity<Book> getBookById(@PathVariable("id") long id) {
-        Optional<Book> book = bookService.read(id);
-        return book.map(ResponseEntity::ok)
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    @GetMapping("/read/{id}")
+    public Book read(@PathVariable long id) {
+        return service.read(id).orElse(null);
     }
 
-    // Get all
-    @GetMapping
-    public ResponseEntity<List<Book>> getAllBooks() {
-        return ResponseEntity.ok(bookService.getAll());
+    @PutMapping("/update")
+    public Book update(@RequestBody Book book) {
+        return service.update(book);
     }
 
-    // Update
+    @DeleteMapping("/delete/{id}")
+    public boolean delete(@PathVariable long id) {
+        return service.delete(id);
+    }
 
-
-    // Delete
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteBook(@PathVariable("id") long id) {
-        boolean deleted = bookService.delete(id);
-        return deleted ? ResponseEntity.noContent().build() : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    @GetMapping("/getAll")
+    public List<Book> getAll() {
+        return service.getAll();
     }
 }

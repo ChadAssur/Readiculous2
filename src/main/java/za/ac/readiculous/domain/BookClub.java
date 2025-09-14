@@ -1,21 +1,31 @@
 package za.ac.readiculous.domain;
 
-
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
+@Entity
+@Table(name = "bookclub")
 public class BookClub {
-    private long clubId;
-    private long organizerId;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long clubId;
+
+    private Long organizerId;
     private String clubName;
     private String clubDescription;
     private String clubGenre;
     private LocalDateTime createdAt;
     private String memberList;
+
+
+    @Transient
     private EventManagement scheduleMeeting;
 
-    protected BookClub(){}
+    protected BookClub() {}
 
-    public BookClub(Builder builder){
+    private BookClub(Builder builder) {
         this.clubId = builder.clubId;
         this.organizerId = builder.organizerId;
         this.clubName = builder.clubName;
@@ -26,36 +36,31 @@ public class BookClub {
         this.scheduleMeeting = builder.scheduleMeeting;
     }
 
-    public long getClubId() {
-        return clubId;
+    public Long getClubId() { return clubId; }
+    public Long getOrganizerId() { return organizerId; }
+    public String getClubName() { return clubName; }
+    public String getClubDescription() { return clubDescription; }
+    public String getClubGenre() { return clubGenre; }
+    public LocalDateTime getCreatedAt() { return createdAt; }
+    public String getMemberList() { return memberList; }
+    public EventManagement getScheduleMeeting() { return scheduleMeeting; }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof BookClub that)) return false;
+        return Objects.equals(clubId, that.clubId) &&
+                Objects.equals(organizerId, that.organizerId) &&
+                Objects.equals(clubName, that.clubName) &&
+                Objects.equals(clubDescription, that.clubDescription) &&
+                Objects.equals(clubGenre, that.clubGenre) &&
+                Objects.equals(createdAt, that.createdAt) &&
+                Objects.equals(memberList, that.memberList);
     }
 
-    public long getOrganizerId() {
-        return organizerId;
-    }
-
-    public String getClubName() {
-        return clubName;
-    }
-
-    public String getClubDescription() {
-        return clubDescription;
-    }
-
-    public String getClubGenre() {
-        return clubGenre;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public String getMemberList() {
-        return memberList;
-    }
-
-    public EventManagement getScheduleMeeting() {
-        return scheduleMeeting;
+    @Override
+    public int hashCode() {
+        return Objects.hash(clubId, organizerId, clubName, clubDescription, clubGenre, createdAt, memberList);
     }
 
     @Override
@@ -71,10 +76,10 @@ public class BookClub {
                 ", scheduleMeeting=" + scheduleMeeting +
                 '}';
     }
-    
+
     public static class Builder {
-        private long clubId;
-        private long organizerId;
+        private Long clubId;
+        private Long organizerId;
         private String clubName;
         private String clubDescription;
         private String clubGenre;
@@ -82,13 +87,13 @@ public class BookClub {
         private String memberList;
         private EventManagement scheduleMeeting;
 
-        public Builder setOrganizerId(long organizerId) {
-            this.organizerId = organizerId;
+        public Builder setClubId(Long clubId) {
+            this.clubId = clubId;
             return this;
         }
 
-        public Builder setClubId(long clubId) {
-            this.clubId = clubId;
+        public Builder setOrganizerId(Long organizerId) {
+            this.organizerId = organizerId;
             return this;
         }
 
@@ -133,7 +138,7 @@ public class BookClub {
             this.scheduleMeeting = bookClub.scheduleMeeting;
             return this;
         }
-        
+
         public BookClub build() {
             return new BookClub(this);
         }
