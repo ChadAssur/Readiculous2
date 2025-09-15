@@ -6,9 +6,9 @@ import za.ac.readiculous.domain.Discussion;
 import za.ac.readiculous.service.DiscussionService;
 
 import java.util.List;
-
 @RestController
-@RequestMapping("/api/discussions")
+@RequestMapping("/api/Discussion")
+@CrossOrigin(origins = "http://localhost:5173")
 public class DiscussionController {
 
     private final DiscussionService service;

@@ -6,9 +6,9 @@ import za.ac.readiculous.domain.Book;
 import za.ac.readiculous.service.BookService;
 
 import java.util.List;
-
 @RestController
-@RequestMapping("/book")
+@RequestMapping("/api/Book")
+@CrossOrigin(origins = "http://localhost:5173")
 public class BookController {
 
     private final BookService bookService;

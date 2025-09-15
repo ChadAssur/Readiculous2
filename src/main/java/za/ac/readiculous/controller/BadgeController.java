@@ -8,7 +8,9 @@ import za.ac.readiculous.service.BadgeService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/badges")
+@RequestMapping("/api/Badge")
+@CrossOrigin(origins = "http://localhost:5173")
+
 public class BadgeController {
 
     private final BadgeService service;

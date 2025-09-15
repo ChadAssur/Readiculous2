@@ -7,9 +7,9 @@ import za.ac.readiculous.service.BookClubService;
 
 
 import java.util.List;
-
 @RestController
-@RequestMapping("/bookclub")
+@RequestMapping("/api/BookClub")
+@CrossOrigin(origins = "http://localhost:5173")
 public class BookClubController {
 
     private final BookClubService bookclubService;
