@@ -1,4 +1,3 @@
-
 package za.ac.readiculous.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +12,10 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:5173")
 public class UserController {
 
-    private final UserService userService;
-    private UserService service;
+    private final UserService service;
 
     @Autowired
-    public UserController(UserService userService, UserService service) {
-        this.userService = userService;
+    public UserController(UserService service) {
         this.service = service;
     }
 
@@ -50,5 +47,26 @@ public class UserController {
     @PutMapping("/changePassword/{id}")
     public User changePassword(@PathVariable Integer id, @RequestParam String newPassword) {
         return service.changePassword(id, newPassword);
+    }
+
+    // --- New Login API ---
+    @PostMapping("/login")
+    public User login(@RequestBody LoginRequest loginRequest) {
+        User user = service.login(loginRequest.getEmail(), loginRequest.getPassword());
+        if (user == null) {
+            throw new RuntimeException("Invalid email or password");
+        }
+        return user;
+    }
+
+    // DTO for login
+    public static class LoginRequest {
+        private String email;
+        private String password;
+
+        public String getEmail() { return email; }
+        public void setEmail(String email) { this.email = email; }
+        public String getPassword() { return password; }
+        public void setPassword(String password) { this.password = password; }
     }
 }
