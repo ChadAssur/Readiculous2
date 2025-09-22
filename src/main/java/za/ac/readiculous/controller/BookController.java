@@ -6,42 +6,46 @@ import za.ac.readiculous.domain.Book;
 import za.ac.readiculous.service.BookService;
 
 import java.util.List;
+
 @RestController
 @RequestMapping("/api/Book")
 @CrossOrigin(origins = "http://localhost:5173")
 public class BookController {
 
     private final BookService bookService;
-    private BookService service;
 
     @Autowired
-    public BookController(BookService bookService, BookService service) {
+    public BookController(BookService bookService) {
         this.bookService = bookService;
-        this.service = service;
     }
 
+    // Create a new Book
     @PostMapping("/create")
     public Book create(@RequestBody Book book) {
-        return service.create(book);
+        return bookService.create(book);
     }
 
+    // Read a Book by ID
     @GetMapping("/read/{id}")
-    public Book read(@PathVariable long id) {
-        return service.read(id).orElse(null);
+    public Book read(@PathVariable Long id) {
+        return bookService.read(id).orElse(null);
     }
 
+    // Update a Book
     @PutMapping("/update")
     public Book update(@RequestBody Book book) {
-        return service.update(book);
+        return bookService.update(book);
     }
 
+    // Delete a Book by ID
     @DeleteMapping("/delete/{id}")
-    public boolean delete(@PathVariable long id) {
-        return service.delete(id);
+    public boolean delete(@PathVariable Long id) {
+        return bookService.delete(id);
     }
 
+    // Get all Books
     @GetMapping("/getAll")
     public List<Book> getAll() {
-        return service.getAll();
+        return bookService.getAll();
     }
 }

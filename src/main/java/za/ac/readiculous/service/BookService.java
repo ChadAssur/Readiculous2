@@ -12,7 +12,6 @@ public class BookService {
 
     private final BookRepository bookRepository;
 
-    // Constructor injection
     public BookService(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
     }
@@ -30,7 +29,19 @@ public class BookService {
     }
 
     public Book update(Book book) {
-        return bookRepository.save(book); // same method for create & update
+        // Check if the book exists
+        Optional<Book> existingBook = bookRepository.findById(book.getBookId());
+        if (existingBook.isPresent()) {
+            // Use Builder to create an updated instance
+            Book updatedBook = new Book.Builder()
+                    .copy(existingBook.get())
+                    .setTitle(book.getTitle())
+                    .setMessage(book.getMessage())
+                    .build();
+            return bookRepository.save(updatedBook);
+        } else {
+            throw new IllegalArgumentException("Book with ID " + book.getBookId() + " does not exist.");
+        }
     }
 
     public boolean delete(Long bookId) {
