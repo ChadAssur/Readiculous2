@@ -4,18 +4,26 @@ import za.ac.readiculous.domain.Book;
 
 public class BookFactory {
 
-    public static Book createBook(long bookId, String title, String message) {
-        if (title == null || title.isEmpty()) {
+    public static Book createBook(String title, String author, String description, String genre, int yearPublished) {
+        if (title == null || title.isBlank()) {
             throw new IllegalArgumentException("Title is required.");
         }
-        if (message == null) {
-            message = ""; // default to empty message
+        if (author == null || author.isBlank()) {
+            throw new IllegalArgumentException("Author is required.");
+        }
+        if (description == null) {
+            description = ""; // default empty
+        }
+        if (genre == null) {
+            genre = "Unknown"; // default genre
         }
 
         return new Book.Builder()
-                .setBookId(bookId)
                 .setTitle(title)
-                .setMessage(message)
+                .setAuthor(author)
+                .setDescription(description)
+                .setGenre(genre)
+                .setYearPublished(yearPublished)
                 .build();
     }
 }

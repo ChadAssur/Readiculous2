@@ -1,54 +1,74 @@
 package za.ac.readiculous.service;
 
+/* BookService class.java
+Author: [Your Name]
+Date: [Today’s Date]
+*/
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import za.ac.readiculous.domain.Book;
 import za.ac.readiculous.repository.BookRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
-public class BookService {
+public class BookService implements IBookService {
 
-    private final BookRepository bookRepository;
+    private BookRepository repository;
 
-    public BookService(BookRepository bookRepository) {
-        this.bookRepository = bookRepository;
+    @Autowired
+    BookService(BookRepository repository) {
+        this.repository = repository;
     }
 
+    @Override
     public Book create(Book book) {
-        return bookRepository.save(book);
+        return this.repository.save(book);
     }
 
-    public Optional<Book> read(Long bookId) {
-        return bookRepository.findById(bookId);
+    @Override
+    public Book read(Long id) {
+        return this.repository.findById(id).orElse(null);
     }
 
-    public List<Book> getAll() {
-        return bookRepository.findAll();
-    }
-
+    @Override
     public Book update(Book book) {
-        // Check if the book exists
-        Optional<Book> existingBook = bookRepository.findById(book.getBookId());
-        if (existingBook.isPresent()) {
-            // Use Builder to create an updated instance
-            Book updatedBook = new Book.Builder()
-                    .copy(existingBook.get())
-                    .setTitle(book.getTitle())
-                    .setMessage(book.getMessage())
-                    .build();
-            return bookRepository.save(updatedBook);
-        } else {
-            throw new IllegalArgumentException("Book with ID " + book.getBookId() + " does not exist.");
-        }
+        // Save will act as update if the ID exists
+        return this.repository.save(book);
     }
 
-    public boolean delete(Long bookId) {
-        if (bookRepository.existsById(bookId)) {
-            bookRepository.deleteById(bookId);
+    @Override
+    public boolean delete(Long id) {
+        if (this.repository.existsById(id)) {
+            this.repository.deleteById(id);
             return true;
         }
         return false;
+    }
+
+    @Override
+    public List<Book> getAll() {
+        return this.repository.findAll();
+    }
+
+    @Override
+    public List<Book> findByTitle(String title) {
+        return this.repository.findByTitleContainingIgnoreCase(title);
+    }
+
+    @Override
+    public List<Book> findByAuthor(String author) {
+        return this.repository.findByAuthorContainingIgnoreCase(author);
+    }
+
+    @Override
+    public List<Book> findByGenre(String genre) {
+        return this.repository.findByGenreIgnoreCase(genre);
+    }
+
+    @Override
+    public List<Book> findByYearPublished(int yearPublished) {
+        return this.repository.findByYearPublished(yearPublished);
     }
 }
