@@ -1,10 +1,7 @@
 package za.ac.readiculous.domain;
 
 import jakarta.persistence.*;
-
-
 import java.util.Objects;
-
 
 @Entity
 @Table(name = "books")
@@ -15,16 +12,22 @@ public class Book {
     private Long bookId;
 
     private String title;
-    private String message;
+    private String author;
+    private String description;
+    private String genre;
+    private int yearPublished;
 
-    // Default constructor
-    public Book() {}
+    // Default constructor required by JPA
+    protected Book() {}
 
     // Builder constructor
-    public Book(Builder builder) {
+    private Book(Builder builder) {
         this.bookId = builder.bookId;
         this.title = builder.title;
-        this.message = builder.message;
+        this.author = builder.author;
+        this.description = builder.description;
+        this.genre = builder.genre;
+        this.yearPublished = builder.yearPublished;
     }
 
     // Getters
@@ -36,23 +39,39 @@ public class Book {
         return title;
     }
 
-    public String getMessage() {
-        return message;
+    public String getAuthor() {
+        return author;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public int getYearPublished() {
+        return yearPublished;
     }
 
     // equals and hashCode
     @Override
     public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) return true;
+        if (!(o instanceof Book)) return false;
         Book book = (Book) o;
-        return Objects.equals(bookId, book.bookId) &&
+        return yearPublished == book.yearPublished &&
+                Objects.equals(bookId, book.bookId) &&
                 Objects.equals(title, book.title) &&
-                Objects.equals(message, book.message);
+                Objects.equals(author, book.author) &&
+                Objects.equals(description, book.description) &&
+                Objects.equals(genre, book.genre);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(bookId, title, message);
+        return Objects.hash(bookId, title, author, description, genre, yearPublished);
     }
 
     // toString
@@ -61,7 +80,10 @@ public class Book {
         return "Book{" +
                 "bookId=" + bookId +
                 ", title='" + title + '\'' +
-                ", message='" + message + '\'' +
+                ", author='" + author + '\'' +
+                ", description='" + description + '\'' +
+                ", genre='" + genre + '\'' +
+                ", yearPublished=" + yearPublished +
                 '}';
     }
 
@@ -69,7 +91,10 @@ public class Book {
     public static class Builder {
         private Long bookId;
         private String title;
-        private String message;
+        private String author;
+        private String description;
+        private String genre;
+        private int yearPublished;
 
         public Builder setBookId(Long bookId) {
             this.bookId = bookId;
@@ -81,16 +106,33 @@ public class Book {
             return this;
         }
 
-        public Builder setMessage(String message) {
-            this.message = message;
+        public Builder setAuthor(String author) {
+            this.author = author;
             return this;
         }
 
-        // Copy method
+        public Builder setDescription(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public Builder setGenre(String genre) {
+            this.genre = genre;
+            return this;
+        }
+
+        public Builder setYearPublished(int yearPublished) {
+            this.yearPublished = yearPublished;
+            return this;
+        }
+
         public Builder copy(Book book) {
             this.bookId = book.bookId;
             this.title = book.title;
-            this.message = book.message;
+            this.author = book.author;
+            this.description = book.description;
+            this.genre = book.genre;
+            this.yearPublished = book.yearPublished;
             return this;
         }
 

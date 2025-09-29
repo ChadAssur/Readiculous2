@@ -13,6 +13,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer userId;
     private String name;
+    private String lastName; // NEW FIELD
     private String email;
     private String password;
 
@@ -21,6 +22,7 @@ public class User {
     private User(Builder builder) {
         this.userId = builder.userId;
         this.name = builder.name;
+        this.lastName = builder.lastName; // NEW
         this.email = builder.email;
         this.password = builder.password;
     }
@@ -31,6 +33,10 @@ public class User {
 
     public String getName() {
         return name;
+    }
+
+    public String getLastName() { // NEW GETTER
+        return lastName;
     }
 
     public String getEmail() {
@@ -61,6 +67,7 @@ public class User {
     public static class Builder {
         private Integer userId;
         private String name;
+        private String lastName; // NEW
         private String email;
         private String password;
 
@@ -71,6 +78,11 @@ public class User {
 
         public Builder name(String name) {
             this.name = name;
+            return this;
+        }
+
+        public Builder lastName(String lastName) { // NEW
+            this.lastName = lastName;
             return this;
         }
 
