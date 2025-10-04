@@ -3,6 +3,7 @@ package za.ac.readiculous.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import za.ac.readiculous.domain.Book;
+import za.ac.readiculous.domain.User;
 import za.ac.readiculous.service.IBookService;
 
 import java.util.List;
@@ -18,6 +19,8 @@ public class BookController {
     public BookController(IBookService bookService) {
         this.bookService = bookService;
     }
+
+    // --- CRUD Endpoints ---
 
     // Create a new Book
     @PostMapping("/create")
@@ -69,5 +72,19 @@ public class BookController {
     @GetMapping("/search/year")
     public List<Book> findByYear(@RequestParam int year) {
         return bookService.findByYearPublished(year);
+    }
+
+    // --- 🔹 New Endpoints for User-linked Books ---
+
+    // Find all books by userId
+    @GetMapping("/user/{userId}")
+    public List<Book> findByUserId(@PathVariable Integer userId) {
+        return bookService.findByUserId(userId);
+    }
+
+    // (Optional) If you want to accept a whole User object in the body
+    @PostMapping("/user/books")
+    public List<Book> findByUser(@RequestBody User user) {
+        return bookService.findByUser(user);
     }
 }

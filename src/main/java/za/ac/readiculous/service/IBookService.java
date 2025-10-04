@@ -6,6 +6,8 @@ Date: [Today’s Date]
 */
 
 import za.ac.readiculous.domain.Book;
+import za.ac.readiculous.domain.User;
+
 import java.util.List;
 
 public interface IBookService {
@@ -27,4 +29,9 @@ public interface IBookService {
     List<Book> findByGenre(String genre);
 
     List<Book> findByYearPublished(int yearPublished);
+
+    // 🔹 New methods for User-linked books
+    List<Book> findByUser(User user);
+
+    List<Book> findByUserId(Integer userId);
 }
