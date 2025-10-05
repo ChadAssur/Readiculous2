@@ -8,6 +8,7 @@ Date: [Today’s Date]
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import za.ac.readiculous.domain.Book;
+import za.ac.readiculous.domain.User;
 import za.ac.readiculous.repository.BookRepository;
 
 import java.util.List;
@@ -15,7 +16,7 @@ import java.util.List;
 @Service
 public class BookService implements IBookService {
 
-    private BookRepository repository;
+    private final BookRepository repository;
 
     @Autowired
     BookService(BookRepository repository) {
@@ -70,5 +71,15 @@ public class BookService implements IBookService {
     @Override
     public List<Book> findByYearPublished(int yearPublished) {
         return this.repository.findByYearPublished(yearPublished);
+    }
+
+    // 🔹 New: Find all books by User
+    public List<Book> findByUser(User user) {
+        return this.repository.findByUser(user);
+    }
+
+    // 🔹 New: Find all books by userId
+    public List<Book> findByUserId(Integer userId) {
+        return this.repository.findByUser_UserId(userId);
     }
 }
