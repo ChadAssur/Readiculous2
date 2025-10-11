@@ -24,8 +24,8 @@ class BookClubServiceTest {
 
     @Autowired
     private BookClubService service;
-    private BookClub bookClub = BookClubFactory.createBookClub2(1001L, 2001L, "Fantasy Readers", "Suckers for love."
-            ,"Romance", LocalDateTime.now(), "15");;
+    private BookClub bookClub = BookClubFactory.createBookClub(2001L, "Fantasy Readers", "Suckers for love.",
+             LocalDateTime.now());;
 
     @Test
     void a_create() {

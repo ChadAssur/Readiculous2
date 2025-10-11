@@ -13,8 +13,8 @@ import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 class BookClubFactoryTest {
-    public static BookClub club1 = BookClubFactory.createBookClub2(1001L, 2001L, "Fantasy Readers", "Suckers for love."
-            ,"Romance", LocalDateTime.now(), "15");
+    public static BookClub club1 = BookClubFactory.createBookClub( 2001L, "Fantasy Readers", "Suckers for love."
+            , LocalDateTime.now());
 
     @Test
     @Order(1)
