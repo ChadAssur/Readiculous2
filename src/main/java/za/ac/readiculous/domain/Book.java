@@ -21,11 +21,11 @@ public class Book {
 
     @Lob
     @Column(columnDefinition = "LONGBLOB")
-    private byte[] image; // book cover image
+    private byte[] image; // Book cover image
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user; // Link to User
+    @ManyToOne(optional = true)
+    @JoinColumn(name = "user_id", nullable = true)
+    private User user;
 
     protected Book() {}
 
