@@ -45,4 +45,28 @@ public class DiscussionService implements IDiscussionService {
     public List<Discussion> getAll() {
         return this.repository.findAll();
     }
+
+    /**
+     * Increment likes for a discussion
+     */
+    public Discussion likeDiscussion(Long id) {
+        Discussion discussion = this.read(id);
+        if (discussion != null) {
+            discussion.setLikes(discussion.getLikes() + 1);
+            return this.update(discussion);
+        }
+        return null;
+    }
+
+    /**
+     * Add a comment to a discussion
+     */
+    public Discussion addComment(Long id, String comment) {
+        Discussion discussion = this.read(id);
+        if (discussion != null && comment != null && !comment.trim().isEmpty()) {
+            discussion.getComments().add(comment);
+            return this.update(discussion);
+        }
+        return null;
+    }
 }

@@ -1,39 +1,35 @@
 package za.ac.readiculous.util;
 
 public class BookClubDTO {
-    private long clubId;
+
+    private Integer clubId;
     private String clubName;
     private String clubDescription;
-    private int ownerId;
+    private Integer ownerId;
 
-    public BookClubDTO(long clubId, String clubName, String clubDescription, int ownerId) {}
+    public BookClubDTO() {}
 
-    public int getOwnerId() {
-        return ownerId;
-    }
-    public void setOwnerId(int userId) {
+    // Request DTO
+    public BookClubDTO(String clubName, String clubDescription, Integer ownerId) {
+        this.clubName = clubName;
+        this.clubDescription = clubDescription;
         this.ownerId = ownerId;
     }
 
-    public long getClubId() {
-        return clubId;
-    }
-    public void setClubId(long clubId) {
+    // Response DTO
+    public BookClubDTO(Integer clubId, String clubName, String clubDescription, Integer ownerId) {
         this.clubId = clubId;
-    }
-
-    public String getClubName() {
-        return clubName;
-    }
-    public void setClubName(String clubName) {
         this.clubName = clubName;
-    }
-
-    public String getClubDescription() {
-        return clubDescription;
-    }
-    public void setClubDescription(String clubDescription) {
         this.clubDescription = clubDescription;
+        this.ownerId = ownerId;
     }
 
+    public Integer getClubId() { return clubId; }
+    public void setClubId(Integer clubId) { this.clubId = clubId; }
+    public String getClubName() { return clubName; }
+    public void setClubName(String clubName) { this.clubName = clubName; }
+    public String getClubDescription() { return clubDescription; }
+    public void setClubDescription(String clubDescription) { this.clubDescription = clubDescription; }
+    public Integer getOwnerId() { return ownerId; }
+    public void setOwnerId(Integer ownerId) { this.ownerId = ownerId; }
 }
