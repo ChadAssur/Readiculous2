@@ -1,9 +1,13 @@
 package za.ac.readiculous.domain;
 
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -16,9 +20,10 @@ public class Discussion {
     private String description;
     private int likes;
     private String author;
-    private String comment;
 
-    // Default constructor (JPA requirement)
+    @ElementCollection
+    private List<String> comments = new ArrayList<>();
+
     protected Discussion() {}
 
     private Discussion(Builder builder) {
@@ -27,54 +32,42 @@ public class Discussion {
         this.description = builder.description;
         this.likes = builder.likes;
         this.author = builder.author;
-        this.comment = builder.comment;
+        this.comments = builder.comments;
     }
 
     // Getters
-    public Long getDiscussionId() {
-        return discussionId;
-    }
+    public Long getDiscussionId() { return discussionId; }
+    public String getTitle() { return title; }
+    public String getDescription() { return description; }
+    public int getLikes() { return likes; }
+    public String getAuthor() { return author; }
+    public List<String> getComments() { return comments; }
 
-    public String getTitle() {
-        return title;
-    }
+    // Setters (needed for DiscussionService)
+    public void setTitle(String title) { this.title = title; }
+    public void setDescription(String description) { this.description = description; }
+    public void setLikes(int likes) { this.likes = likes; }
+    public void setAuthor(String author) { this.author = author; }
+    public void setComments(List<String> comments) { this.comments = comments; }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public int getLikes() {
-        return likes;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public String getComment() {
-        return comment;
-    }
-
-    // equals & hashCode
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Discussion)) return false;
         Discussion that = (Discussion) o;
         return likes == that.likes &&
                 Objects.equals(discussionId, that.discussionId) &&
                 Objects.equals(title, that.title) &&
                 Objects.equals(description, that.description) &&
                 Objects.equals(author, that.author) &&
-                Objects.equals(comment, that.comment);
+                Objects.equals(comments, that.comments);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(discussionId, title, description, likes, author, comment);
+        return Objects.hash(discussionId, title, description, likes, author, comments);
     }
 
-    // toString
     @Override
     public String toString() {
         return "Discussion{" +
@@ -83,7 +76,7 @@ public class Discussion {
                 ", description='" + description + '\'' +
                 ", likes=" + likes +
                 ", author='" + author + '\'' +
-                ", comment='" + comment + '\'' +
+                ", comments=" + comments +
                 '}';
     }
 
@@ -94,37 +87,14 @@ public class Discussion {
         private String description;
         private int likes;
         private String author;
-        private String comment;
+        private List<String> comments = new ArrayList<>();
 
-        public Builder setDiscussionId(Long discussionId) {
-            this.discussionId = discussionId;
-            return this;
-        }
-
-        public Builder setTitle(String title) {
-            this.title = title;
-            return this;
-        }
-
-        public Builder setDescription(String description) {
-            this.description = description;
-            return this;
-        }
-
-        public Builder setLikes(int likes) {
-            this.likes = likes;
-            return this;
-        }
-
-        public Builder setAuthor(String author) {
-            this.author = author;
-            return this;
-        }
-
-        public Builder setComment(String comment) {
-            this.comment = comment;
-            return this;
-        }
+        public Builder setDiscussionId(Long discussionId) { this.discussionId = discussionId; return this; }
+        public Builder setTitle(String title) { this.title = title; return this; }
+        public Builder setDescription(String description) { this.description = description; return this; }
+        public Builder setLikes(int likes) { this.likes = likes; return this; }
+        public Builder setAuthor(String author) { this.author = author; return this; }
+        public Builder setComments(List<String> comments) { this.comments = comments; return this; }
 
         public Builder copy(Discussion discussion) {
             this.discussionId = discussion.discussionId;
@@ -132,7 +102,7 @@ public class Discussion {
             this.description = discussion.description;
             this.likes = discussion.likes;
             this.author = discussion.author;
-            this.comment = discussion.comment;
+            this.comments = discussion.comments;
             return this;
         }
 
