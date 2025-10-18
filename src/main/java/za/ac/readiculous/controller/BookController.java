@@ -1,53 +1,90 @@
 package za.ac.readiculous.controller;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import za.ac.readiculous.domain.Book;
-import za.ac.readiculous.service.BookService;
+import za.ac.readiculous.domain.User;
+import za.ac.readiculous.service.IBookService;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/books")
+@RequestMapping("/api/books")  // lowercase and plural is conventional
+@CrossOrigin(origins = "http://localhost:5173")
 public class BookController {
 
-    private final BookService bookService;
+    private final IBookService bookService;
 
-    // Constructor injection
-    public BookController(BookService bookService) {
+    @Autowired
+    public BookController(IBookService bookService) {
         this.bookService = bookService;
     }
 
-    // Create
-    @PostMapping
-    public ResponseEntity<Book> createBook(@RequestBody Book book) {
-        Book created = bookService.create(book);
-        return new ResponseEntity<>(created, HttpStatus.CREATED);
+    // --- CRUD Endpoints ---
+
+    // Create a new Book
+    @PostMapping("/create")
+    public Book create(@RequestBody Book book) {
+        return bookService.create(book);
     }
 
-    // Read by ID
-    @GetMapping("/{id}")
-    public ResponseEntity<Book> getBookById(@PathVariable("id") long id) {
-        Optional<Book> book = bookService.read(id);
-        return book.map(ResponseEntity::ok)
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    // Read a Book by ID
+    @GetMapping("/read/{id}")
+    public Book read(@PathVariable Long id) {
+        return bookService.read(id);
     }
 
-    // Get all
-    @GetMapping
-    public ResponseEntity<List<Book>> getAllBooks() {
-        return ResponseEntity.ok(bookService.getAll());
+    // Update a Book
+    @PutMapping("/update")
+    public Book update(@RequestBody Book book) {
+        return bookService.update(book);
     }
 
-    // Update
+    // Delete a Book by ID
+    @DeleteMapping("/delete/{id}")
+    public boolean delete(@PathVariable Long id) {
+        return bookService.delete(id);
+    }
 
+    // Get all Books
+    @GetMapping("/getAll")
+    public List<Book> getAll() {
+        return bookService.getAll();
+    }
 
-    // Delete
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteBook(@PathVariable("id") long id) {
-        boolean deleted = bookService.delete(id);
-        return deleted ? ResponseEntity.noContent().build() : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    // --- Search Endpoints ---
+
+    @GetMapping("/search/title")
+    public List<Book> findByTitle(@RequestParam String title) {
+        return bookService.findByTitle(title);
+    }
+
+    @GetMapping("/search/author")
+    public List<Book> findByAuthor(@RequestParam String author) {
+        return bookService.findByAuthor(author);
+    }
+
+    @GetMapping("/search/genre")
+    public List<Book> findByGenre(@RequestParam String genre) {
+        return bookService.findByGenre(genre);
+    }
+
+    @GetMapping("/search/year")
+    public List<Book> findByYear(@RequestParam int year) {
+        return bookService.findByYearPublished(year);
+    }
+
+    // --- 🔹 New Endpoints for User-linked Books ---
+
+    // Find all books by userId
+    @GetMapping("/user/{userId}")
+    public List<Book> findByUserId(@PathVariable Integer userId) {
+        return bookService.findByUserId(userId);
+    }
+
+    // (Optional) If you want to accept a whole User object in the body
+    @PostMapping("/user/books")
+    public List<Book> findByUser(@RequestBody User user) {
+        return bookService.findByUser(user);
     }
 }

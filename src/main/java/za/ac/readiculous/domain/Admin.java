@@ -4,9 +4,14 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Objects;
-
+@RestController
+@RequestMapping("/api/auth")
+@CrossOrigin(origins = "http://localhost:5173")
 @Entity
 public class Admin {
     @Id
@@ -18,7 +23,8 @@ public class Admin {
     private String password;
     private String role = "ADMIN";
 
-    public Admin() {}
+
+    public Admin()  {}
 
     public Admin(Builder builder) {
         this.id = builder.id;

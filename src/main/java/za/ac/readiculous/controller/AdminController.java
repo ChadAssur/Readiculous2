@@ -11,6 +11,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/admins")
+@CrossOrigin(origins = "http://localhost:5173")
 public class AdminController {
 
     private final AdminService adminService;
@@ -30,6 +31,7 @@ public class AdminController {
         );
         return new ResponseEntity<>(admin, HttpStatus.CREATED);
     }
+
 
     // Get all admins
     @GetMapping

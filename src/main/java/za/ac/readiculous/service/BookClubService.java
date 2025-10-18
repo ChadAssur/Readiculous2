@@ -1,10 +1,5 @@
 package za.ac.readiculous.service;
 
-/* BookClubService class.java
-Author: Brezano Liebenberg (230463886)
-Date:31 July 2025
-*/
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import za.ac.readiculous.domain.BookClub;
@@ -15,36 +10,25 @@ import java.util.List;
 @Service
 public class BookClubService implements IBookClubService {
 
-    private BookClubRepository repository;
+    private final BookClubRepository repository;
 
     @Autowired
-    BookClubService(BookClubRepository repository) {
+    public BookClubService(BookClubRepository repository) {
         this.repository = repository;
     }
 
     @Override
-    public BookClub create(BookClub bookClub) {
-        return this.repository.save(bookClub);
-    }
+    public BookClub create(BookClub bookClub) { return repository.save(bookClub); }
 
     @Override
-    public BookClub read(Long id) {
-        return this.repository.findById(id).orElse(null);
-    }
+    public BookClub read(Integer id) { return repository.findById(id).orElse(null); }
 
     @Override
-    public BookClub update(BookClub bookClub) {
-        return this.repository.save(bookClub);
-    }
+    public BookClub update(BookClub bookClub) { return repository.save(bookClub); }
 
     @Override
-    public boolean delete(Long id) {
-        this.repository.deleteById(id);
-        return true;
-    }
+    public boolean delete(Integer id) { repository.deleteById(id); return true; }
 
     @Override
-    public List<BookClub> getAll() {
-        return this.repository.findAll();
-    }
+    public List<BookClub> getAll() { return repository.findAll(); }
 }

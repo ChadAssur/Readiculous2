@@ -8,9 +8,9 @@ import za.ac.readiculous.domain.JoinPage;
 import za.ac.readiculous.service.JoinPageService;
 
 import java.util.List;
-
 @RestController
-@RequestMapping("/joinpage")
+@RequestMapping("/api/JoinPage")
+@CrossOrigin(origins = "http://localhost:5173")
 public class JoinPageController {
 
     private final JoinPageService joinPageService;
