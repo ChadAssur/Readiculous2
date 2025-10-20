@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/book-club")
+@RequestMapping("/api/book-club")
 @CrossOrigin(origins = "http://localhost:5173")
 public class BookClubController {
 
@@ -89,3 +89,61 @@ public class BookClubController {
         return ResponseEntity.ok(clubs);
     }
 }
+//
+//@RestController
+//@RequestMapping("/api/book-club")
+//@CrossOrigin(origins = "http://localhost:5173")
+//public class BookClubController {
+//
+//
+//    private final BookClubService bookClubService;
+//    private final UserService userService;
+//
+//
+//    @Autowired
+//    public BookClubController(BookClubService bookClubService, UserService userService) {
+//        this.bookClubService = bookClubService;
+//        this.userService = userService;
+//    }
+//
+//
+//
+//
+//
+//
+//    @PostMapping("/create")
+//    public ResponseEntity<BookClubDTO> create(@RequestBody BookClubDTO dto) {
+//        System.out.println("Received DTO: " + dto);
+//
+//
+//        User user = userService.read(dto.getOwnerId());
+//        if (user == null) {
+//            System.out.println("User not found with ID: " + dto.getOwnerId());
+//            return ResponseEntity.badRequest().build();
+//        }
+//
+//
+//        BookClub club = BookClubFactory.createBookClub(
+//                dto.getClubName(),
+//                dto.getClubDescription(),
+//                LocalDateTime.now(),
+//                user);
+//
+//
+//
+//
+//        BookClub created = bookClubService.create(club);
+//        System.out.println("Saved club: " + created);
+//
+//
+//        return ResponseEntity.ok(new BookClubDTO(created.getClubId(), created.getClubName(), created.getClubDescription(), created.getOwner().getUserId()));
+//    }
+//
+//
+//    @GetMapping("/all")
+//    public List<BookClubDTO> getAllClubs() {
+//        return bookClubService.getAll().stream()
+//                .map(c -> new BookClubDTO(c.getClubId(), c.getClubName(), c.getClubDescription(), c.getOwner().getUserId()))
+//                .toList();
+//    }
+//}

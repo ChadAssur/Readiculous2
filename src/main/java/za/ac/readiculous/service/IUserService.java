@@ -10,5 +10,6 @@ public interface IUserService {
     User update(User user);
     boolean delete(Integer id);
     List<User> getAll();
+    User findById(Integer id);
     User changePassword(Integer id, String newPassword);
 }

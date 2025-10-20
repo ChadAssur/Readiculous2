@@ -31,4 +31,9 @@ public class BookClubService implements IBookClubService {
 
     @Override
     public List<BookClub> getAll() { return repository.findAll(); }
+
+    @Override
+    public BookClub findById(Integer id) {
+        return repository.findById(id).orElse(null);
+    }
 }
