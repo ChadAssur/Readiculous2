@@ -53,6 +53,12 @@ public class UserService implements IUserService {
     }
 
     @Override
+    public User findById(Integer id) {
+        return repository.findById(id).orElse(null);
+    }
+
+
+    @Override
     public User changePassword(Integer id, String newPassword) {
         Optional<User> optionalUser = repository.findById(id);
         if (optionalUser.isPresent()) {

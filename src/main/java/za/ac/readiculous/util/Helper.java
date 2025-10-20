@@ -1,8 +1,15 @@
 package za.ac.readiculous.util;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class Helper {
+
+    public void checkIfNull(Object obj, String fieldName) {
+        if (Objects.isNull(obj)) {
+            throw new IllegalArgumentException(fieldName);
+        }
+    }
 
 
     public static boolean isStringNullOrEmpty(String value) {
@@ -13,7 +20,6 @@ public class Helper {
     public static boolean isValidLong(long id) {
         return id > 0;
     }
-
 
     public static String capitalize(String input) {
         if (isStringNullOrEmpty(input)) return input;

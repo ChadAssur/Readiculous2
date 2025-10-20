@@ -5,4 +5,5 @@ import java.util.List;
 
 public interface IBookClubService extends IService<BookClub, Integer> {
     List<BookClub> getAll();
+    BookClub findById(Integer id);
 }
